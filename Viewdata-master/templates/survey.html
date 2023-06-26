@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>热门手机品牌数据展示</title>
+    <link rel="stylesheet" href="../statics/css/wodry.css">
+    <link rel="stylesheet" href="../statics/css/survey.css">
+    <link rel="stylesheet" href="../statics/css/public.css">
+
+    <script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script>
+        $(function () {
+            $('.myscroll').myScroll({
+                speed: 60, //数值越大，速度越慢
+                rowHeight: 38 //li的高度
+            });
+
+            //自动轮播
+            var timer = setInterval(autoPlay, 3000);
+            function autoPlay(){
+                var $bannerUl=$('#banner ul'),$bannerLi=$('#banner ul li');
+                //动态获取ul的宽度
+                $bannerUl.css('width',$bannerLi.width()*$bannerLi.length);
+                $bannerUl.animate({
+                    'marginLeft':-$bannerLi.width()
+                },500,function(){
+                    $(this).animate({'marginLeft':0},0)
+                        .find('li').eq(0).appendTo($(this));
+                    //把每次移动后的第一个li放到ul的最后面
+                    /*
+                    * 由于把第一个li放到ul的最后面，就会把第二个li挤到第一个li的位置，但是我们又需要显示第二个li，
+                    * 所以需要移动回原点，但是这个移动过程不能被看到，所以执行时间是0
+                    */
+                });
+            }
+
+            // 清除和设置定时器
+            $("#banner").mouseover(function(){
+                clearInterval(timer);
+            });
+
+            $("#banner").mouseout(function () {
+                timer = setInterval(autoPlay, 3000);
+            })
+
+
+        });
+
+
+        $(document).ready(function () {
+            var whei = $(window).width()
+            $("html").css({ fontSize: whei / 22 });
+            $(window).resize(function () {
+                var whei = $(window).width();
+                $("html").css({ fontSize: whei / 22 })
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+<div class="main">
+    <div class="header">
+        <div class="header-left fl" id="time"></div>
+        <div class="header-center fl">
+            <div class="header-title">
+                热门手机品牌数据概况
+            </div>
+            <div class="header-img"></div>
+        </div>
+        <div class="header-right fl"></div>
+        <div class="header-bottom fl"></div>
+
+    </div>
+
+    <div class="center">
+        <div class="center-left fl">
+            <div class="left-top rightTop border">
+                <div class="title">基本信息</div>
+                <div class="top-list">
+
+                 <span>
+                    <b class="counter" id="countyCount"></b>
+                    <p>县服务中心</p>
+                 </span>
+                <span>
+                    <b class="counter" id="townCount"></b>
+                    <p>乡镇服务站</p>
+                 </span>
+                <span>
+                    <b class="counter" id="villageCount"></b>
+                    <p>村服务部</p>
+                 </span>
+                <span class="last">
+                    <b class="counter" id="userCount"></b>
+                    <p>三级服务体系人员</p>
+                 </span>
+
+              </div>
+
+            </div>
+            <div class="left-cen rightTop border">
+                <div class="title">店铺销售情况</div>
+
+                <div id="banner" class="banner">
+                    <ul>
+                        <li>
+                            <div class="list clearfix">
+                                <div class="listTxt" id="shop1"></div>
+                                <div class="listImg"><img src="../statics/images/huawei.png"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list clearfix">
+                                <div class="listTxt" id="shop2">
+                                </div>
+                                <div class="listImg"><img src="../statics/images/apple.png"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list clearfix">
+                                <div class="listTxt" id="shop3">
+                                </div>
+                                <div class="listImg"><img src="../statics/images/xiaomi.png"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list clearfix">
+                                <div class="listTxt" id="shop4">
+                                </div>
+                                <div class="listImg"><img src="../statics/images/vivo.png"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list clearfix">
+                                <div class="listTxt" id="shop5">
+                                </div>
+                                <div class="listImg"><img src="../statics/images/oppo.png"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list clearfix">
+                                <div class="listTxt" id="shop6">
+                                </div>
+                                <div class="listImg"><img src="../statics/images/honor.png"></div>
+                            </div>
+                        </li>
+                        <!--<li><a href="#"><img src="./images/500x300-1.png" alt=""></a></li>
+                        <li><a href="#"><img src="./images/500x300-2.png" alt=""></a></li>
+                        <li><a href="#"><img src="./images/500x300-3.png" alt=""></a></li>-->
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="left-bottom rightTop border">
+                <div class="title">数码产品分类占比</div>
+                <div class="bottom-b">
+                    <div id="chart3" class="allnav"></div>
+                </div>
+
+            </div>
+
+
+            <div class="left-top rightTop border" style="margin-bottom:0px !important;">
+                <div class="title">店铺信息</div>
+                <div class="top-list">
+
+                 <span>
+                    <b class="counter" id="Count1">1</b>
+                    <p>旗舰店</p>
+                 </span>
+                    <span>
+                    <b class="counter" id="Count2">19</b>
+                    <p>体验店</p>
+                 </span>
+                    <span>
+                    <b class="counter" id="Count3">290</b>
+                    <p>普通门店</p>
+                 </span>
+                    <span class="last">
+                    <b class="counter" id="Count4">2180</b>
+                    <p>销售人员</p>
+                 </span>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="center-cen fl">
+            <div class="cen-top">
+                <div class="top-title">
+                    <ul>
+                        <li>
+                            <p>销售数量统计</p>
+                            <span>3</span>
+                            <span>6</span>
+                            <span>5</span>
+                            <span>0</span>
+                            <span>0</span>
+                            <b>个</b>
+                        </li>
+                        <li>
+                            <p>同比上升</p>
+                            <span>1</span>
+                            <span>3</span>
+                            <b>%</b>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="top-bottom">
+                    <div id="diqu" class="allnav" style="height: 4.4rem"></div>
+                </div>
+
+
+            </div>
+            <div class="cen-bottom rightTop border">
+                <div class="title">订单情况</div>
+                <div class="bottom-b">
+                    <div id="chart4" class="allnav"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="center-right fr">
+            <div class="right-top rightTop border">
+                <div class="title">各年龄段占比</div>
+
+                <div class="right-top-cent" >
+                    <div id="shuiipin" class="allnav"></div>
+                </div>
+
+            </div>
+            <div class="right-cen border">
+                <div class="title">各手机品牌占比</div>
+                <div class="right-cen-cent">
+                    <div id="chart2" class="allnav"></div>
+                </div>
+
+            </div>
+            <div class="right-bottom rightTop border">
+                <div class="title">各物流公司站点排行</div>
+                <div class="chat">
+                    <div id="chart5" class="allnav"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="popup">
+    <a href="javascript:;" class="popupClose"></a>
+    <div class="summary">
+        <div class="summaryTop">
+            <div id="summaryPie1" class="summaryPie"></div>
+            <div id="summaryPie2" class="summaryPie"></div>
+            <div id="summaryPie3" class="summaryPie"></div>
+        </div>
+        <div class="summaryBottom">
+            <div class="summaryBar">
+                <div class="summaryTit">
+<!--                    <img src="images/tit1.png">-->
+                </div>
+                <div id="summaryBar"></div>
+            </div>
+
+            <div class="summaryLine">
+                <div class="summaryTit">
+<!--                    <img src="images/tit2.png">-->
+                </div>
+                <div id="summaryLine"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="https://www.jq22.com/jquery/echarts-4.2.1.min.js"></script>
+<script src="../statics/js/wodry.min.js"></script>
+<script src="../statics/js/fontscroll.js"></script>
+<script src="../statics/js/survey.js"></script>
+<script>
+    $('#chart3').on('click',function(){
+        $('.filterbg').show();
+        $('.popup').show();
+        $('.popup').width('3px');
+        $('.popup').animate({height: '76%'},400,function(){
+            $('.popup').animate({width: '82%'},400);
+        });
+        setTimeout(summaryShow,800);
+    });
+    $('.popupClose').on('click',function(){
+        $('.popupClose').css('display','none');
+        $('.summary').hide();
+        $('.popup').animate({width: '3px'},400,function(){
+            $('.popup').animate({height: 0},400);
+        });
+        setTimeout(summaryHide,800);
+    });
+    function summaryShow(){
+        $('.popupClose').css('display','block');
+        $('.summary').show();
+        setSummary();
+
+    };
+    function summaryHide(){
+        $('.filterbg').hide();
+        $('.popup').hide();
+        $('.popup').width(0);
+    };
+
+        function get_toplist_data(){
+        $.ajax({
+            url:"http://127.0.0.1:5000/survey/top_list",
+            success:function(data){
+                $("#countyCount").text(data[0]);
+                $("#townCount").text(data[1]);
+                $("#villageCount").text(data[2]);
+                $("#userCount").text(data[3]);
+
+            },
+            error:function(xhr, type, errorThrown){
+            }
+        });
+    }
+    get_toplist_data();
+
+    //顶部时间
+    function getTime(){
+        var myDate = new Date();
+        var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
+        var myMonth = myDate.getMonth()+1; //获取当前月份(0-11,0代表1月)
+        var myToday = myDate.getDate(); //获取当前日(1-31)
+        var myDay = myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
+        var myHour = myDate.getHours(); //获取当前小时数(0-23)
+        var myMinute = myDate.getMinutes(); //获取当前分钟数(0-59)
+        var mySecond = myDate.getSeconds(); //获取当前秒数(0-59)
+        var week = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+        var nowTime;
+
+        nowTime = myYear+'-'+fillZero(myMonth)+'-'+fillZero(myToday)+'&nbsp;&nbsp;'+fillZero(myHour)+':'+fillZero(myMinute)+':'+fillZero(mySecond)+'&nbsp;&nbsp;'+week[myDay]+'&nbsp;&nbsp;';
+        //console.log(nowTime);
+        $('#time').html(nowTime);
+    };
+    function fillZero(str){
+        var realNum;
+        if(str<10){
+            realNum	= '0'+str;
+        }else{
+            realNum	= str;
+        }
+        return realNum;
+    }
+    setInterval(getTime,1000);
+
+    function get_shop_data(){
+        $.ajax({
+            url:"http://127.0.0.1:5000/survey/shop_info",
+            success:function(data){
+                $("#shop1").eq(0).html('<p>商店名称：<span>'+data[0][0]+'</span></p><p>销售金额：<span>'+data[0][1]+'万</span></p><p>所售商品：<span>'+data[0][2]+'</span></p><p>店铺地区：<span>'+data[0][3]+'</span></p><p>销售时间：<span>'+data[0][4]+'</span></p>');
+                $("#shop2").eq(0).html('<p>商店名称：<span>'+data[1][0]+'</span></p><p>销售金额：<span>'+data[1][1]+'万</span></p><p>所售商品：<span>'+data[1][2]+'</span></p><p>店铺地区：<span>'+data[1][3]+'</span></p><p>销售时间：<span>'+data[1][4]+'</span></p>');
+                $("#shop3").eq(0).html('<p>商店名称：<span>'+data[2][0]+'</span></p><p>销售金额：<span>'+data[2][1]+'万</span></p><p>所售商品：<span>'+data[2][2]+'</span></p><p>店铺地区：<span>'+data[2][3]+'</span></p><p>销售时间：<span>'+data[2][4]+'</span></p>');
+                $("#shop4").eq(0).html('<p>商店名称：<span>'+data[3][0]+'</span></p><p>销售金额：<span>'+data[3][1]+'万</span></p><p>所售商品：<span>'+data[3][2]+'</span></p><p>店铺地区：<span>'+data[3][3]+'</span></p><p>销售时间：<span>'+data[3][4]+'</span></p>');
+                $("#shop5").eq(0).html('<p>商店名称：<span>'+data[4][0]+'</span></p><p>销售金额：<span>'+data[4][1]+'万</span></p><p>所售商品：<span>'+data[4][2]+'</span></p><p>店铺地区：<span>'+data[4][3]+'</span></p><p>销售时间：<span>'+data[4][4]+'</span></p>');
+                $("#shop6").eq(0).html('<p>商店名称：<span>'+data[5][0]+'</span></p><p>销售金额：<span>'+data[5][1]+'万</span></p><p>所售商品：<span>'+data[5][2]+'</span></p><p>店铺地区：<span>'+data[5][3]+'</span></p><p>销售时间：<span>'+data[5][4]+'</span></p>');
+                },
+            error:function(xhr, type, errorThrown){
+            }
+        });
+    }
+    get_shop_data();
+
+            function get_shop_data2(){
+        $.ajax({
+            url:"http://127.0.0.1:5000/survey/shop_basic",
+            success:function(data){
+                $("#Count1").text(data[0]);
+                $("#Count2").text(data[1]);
+                $("#Count3").text(data[2]);
+                $("#Count4").text(data[3]);
+
+            },
+            error:function(xhr, type, errorThrown){
+            }
+        });
+    }
+    get_shop_data2();
+</script>
+
+
+
+
+</body>
+</html>
